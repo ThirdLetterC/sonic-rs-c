@@ -1,0 +1,21 @@
+[package]
+name = "sonic-rs-c"
+version = "0.1.0"
+edition = "2021"
+description = "Embeddable C FFI wrapper library for sonic-rs (SIMD-accelerated JSON crate)"
+license = "Apache-2.0"
+readme = "README.md"
+build = "build.rs"
+
+[lib]
+name = "sonic_rs_c"
+# Produces static library:
+# - Linux/macOS/MinGW: target/release/libsonic_rs_c.a
+# - Windows MSVC:      target/release/sonic_rs_c.lib (and copied to libsonic_rs_c.a)
+crate-type = ["staticlib", "rlib"]
+
+[dependencies]
+sonic-rs = "0.5"
+
+[features]
+default = []

@@ -1,0 +1,4 @@
+# Enable native SIMD instruction sets (AVX2 / SSE4.2 on x86_64, NEON on aarch64)
+# Works on Linux, macOS, and Windows (both x86_64-pc-windows-msvc and gnu).
+[build]
+rustflags = ["-C", "target-cpu=native"]

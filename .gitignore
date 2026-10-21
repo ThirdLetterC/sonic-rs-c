@@ -1,0 +1,20 @@
+# Rust build output
+/target/
+/dist/
+/Cargo.lock
+
+# Native build artifacts
+*.o
+*.obj
+*.a
+*.lib
+*.dll
+*.dylib
+*.so
+*.exe
+
+# Editor and operating system files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
