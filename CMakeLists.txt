@@ -23,17 +23,15 @@ else()
     set(SONIC_RS_STATIC_LIB  "${SONIC_DIST_LIB_DIR}/libsonic_rs_c.a")
 endif()
 
-set(SONIC_RS_ARCHIVE_A "${SONIC_DIST_LIB_DIR}/libsonic_rs_c.a")
 set(SONIC_RS_HEADER    "${SONIC_DIST_INCLUDE_DIR}/sonic_rs.h")
 
 add_custom_command(
-    OUTPUT "${SONIC_RS_STATIC_LIB}" "${SONIC_RS_ARCHIVE_A}" "${SONIC_RS_HEADER}"
+    OUTPUT "${SONIC_RS_STATIC_LIB}" "${SONIC_RS_HEADER}"
     COMMAND "${CMAKE_COMMAND}" -E env "RUSTFLAGS=-C target-cpu=native" "${CARGO_EXECUTABLE}" build --release
     COMMAND "${CMAKE_COMMAND}" -E make_directory "${SONIC_DIST_INCLUDE_DIR}"
     COMMAND "${CMAKE_COMMAND}" -E make_directory "${SONIC_DIST_LIB_DIR}"
     COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${CMAKE_CURRENT_SOURCE_DIR}/include/sonic_rs.h" "${SONIC_RS_HEADER}"
     COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${CARGO_RAW_STATIC_LIB}" "${SONIC_RS_STATIC_LIB}"
-    COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${CARGO_RAW_STATIC_LIB}" "${SONIC_RS_ARCHIVE_A}"
     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
     DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/src/lib.rs"
             "${CMAKE_CURRENT_SOURCE_DIR}/Cargo.toml"
@@ -42,7 +40,7 @@ add_custom_command(
 )
 
 add_custom_target(sonic_rs_cargo ALL
-    DEPENDS "${SONIC_RS_STATIC_LIB}" "${SONIC_RS_ARCHIVE_A}" "${SONIC_RS_HEADER}"
+    DEPENDS "${SONIC_RS_STATIC_LIB}" "${SONIC_RS_HEADER}"
 )
 
 add_library(sonic_rs_static STATIC IMPORTED GLOBAL)
